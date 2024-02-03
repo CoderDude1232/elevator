@@ -4,63 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elevator Simulation</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
 
-<div class="container my-4">
+<div class="container">
     <h2>Elevator Simulation</h2>
-    <table class="table table-bordered">
-        <!-- Create a table row for each floor -->
-        <% for (let floor = 7; floor >= 0; floor--) { %>
-            <tr>
-                <!-- Left shaft's internal floor buttons -->
-                <td class="floor-buttons">
-                    <% if (floor === 0) { %>
-                        <button class="btn btn-primary btn-sm">G</button>
-                    <% } else { %>
-                        <button class="btn btn-primary btn-sm"><%= floor %></button>
+    
+
+        <% for(let floor = 7; floor >= 1; floor--) { %>
+            <div class="row bordered align-items-stretch">
+                <div class="col-3">Col 1 buttons</div>
+                <!-- Left Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                    <!-- Only one elevator box which will move up and down -->
+                    <% if(floor === 1) { %>
+                        <div class="elevator-box" id="left-elevator"></div>
                     <% } %>
-                </td>
-
-                <!-- Left elevator shaft -->
-                <td class="elevator-shaft">
-                    <div id="elevator-left-floor-<%= floor %>" class="elevator-box"></div>
-                </td>
-
-                <!-- Call buttons (only show up/down as appropriate) -->
-                <td class="call-buttons">
+                </div>
+                
+                <!-- Control Panel -->
+                <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                    <!-- Up and Down Call Buttons -->
+                    <p>Floor <%= floor %> bubbles</p>
                     <% if (floor < 7) { %>
-                        <button class="btn btn-secondary btn-sm">↑</button>
+                        <!-- Up Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'up', <%= floor %>)">
+                            <i class="bi bi-arrow-up-circle" data-pressed="false"></i>
+                        </div>
                     <% } %>
-                    <% if (floor > 0) { %>
-                        <button class="btn btn-secondary btn-sm">↓</button>
+                    <% if (floor > 1) { %>
+                        <!-- Down Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'down', <%= floor %>)">
+                            <i class="bi bi-arrow-down-circle" data-pressed="false"></i>
+                        </div>
                     <% } %>
-                </td>
-
-                <!-- Right elevator shaft -->
-                <td class="elevator-shaft">
-                    <div id="elevator-right-floor-<%= floor %>" class="elevator-box"></div>
-                </td>
-
-                <!-- Right shaft's internal floor buttons -->
-                <td class="floor-buttons">
-                    <% if (floor === 0) { %>
-                        <button class="btn btn-primary btn-sm">G</button>
-                    <% } else { %>
-                        <button class="btn btn-primary btn-sm"><%= floor %></button>
+                </div>
+                
+                <!-- Right Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                    <!-- Only one elevator box which will move up and down -->
+                    <% if(floor === 1) { %>
+                        <div class="elevator-box" id="right-elevator"></div>
                     <% } %>
-                </td>
-            </tr>
+                </div>
+                <div class="col-3">Col 5 buttons</div>
+            </div>
         <% } %>
-    </table>
-</div>
 
+</div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script>
     // JavaScript to handle elevator movement and button clicks will go here
+    function toggleElevatorButton(element, direction) {
+    const icon = element.querySelector('i');
+    const isPressed = icon.getAttribute('data-pressed') === 'true';
+
+    if (direction === 'up') {
+        icon.classList.toggle('bi-arrow-up-circle', isPressed);
+        icon.classList.toggle('bi-arrow-up-circle-fill', !isPressed);
+    } else if (direction === 'down') {
+        icon.classList.toggle('bi-arrow-down-circle', isPressed);
+        icon.classList.toggle('bi-arrow-down-circle-fill', !isPressed);
+    }
+    
+    icon.setAttribute('data-pressed', !isPressed);
+    // Call additional functions if needed when button is toggled
+    }
+
 </script>
 </body>
 </html>
