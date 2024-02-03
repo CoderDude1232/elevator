@@ -16,10 +16,10 @@
     
 
         <% for(let floor = 7; floor >= 1; floor--) { %>
-            <div class="row bordered align-items-stretch">
+            <div class="row bordered">
                 <div class="col-3">Col 1 buttons</div>
                 <!-- Left Elevator Shaft -->
-                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                <div class="col-2 elevator-shaft" id="left-elevator-shaft">
                     <!-- Only one elevator box which will move up and down -->
                     <% if(floor === 1) { %>
                         <div class="elevator-box" id="left-elevator"></div>
@@ -27,7 +27,7 @@
                 </div>
                 
                 <!-- Control Panel -->
-                <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                <div class="col-2">
                     <!-- Up and Down Call Buttons -->
                     <p>Floor <%= floor %> bubbles</p>
                     <% if (floor < 7) { %>
@@ -45,7 +45,7 @@
                 </div>
                 
                 <!-- Right Elevator Shaft -->
-                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                <div class="col-2 elevator-shaft" id="right-elevator-shaft">
                     <!-- Only one elevator box which will move up and down -->
                     <% if(floor === 1) { %>
                         <div class="elevator-box" id="right-elevator"></div>
