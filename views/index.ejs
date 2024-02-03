@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevator Simulation</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+<div class="container my-4">
+    <h2>Elevator Simulation</h2>
+    <table class="table table-bordered">
+        <!-- Create a table row for each floor -->
+        <% for (let floor = 7; floor >= 0; floor--) { %>
+            <tr>
+                <!-- Left shaft's internal floor buttons -->
+                <td class="floor-buttons">
+                    <% if (floor === 0) { %>
+                        <button class="btn btn-primary btn-sm">G</button>
+                    <% } else { %>
+                        <button class="btn btn-primary btn-sm"><%= floor %></button>
+                    <% } %>
+                </td>
+
+                <!-- Left elevator shaft -->
+                <td class="elevator-shaft">
+                    <div id="elevator-left-floor-<%= floor %>" class="elevator-box"></div>
+                </td>
+
+                <!-- Call buttons (only show up/down as appropriate) -->
+                <td class="call-buttons">
+                    <% if (floor < 7) { %>
+                        <button class="btn btn-secondary btn-sm">↑</button>
+                    <% } %>
+                    <% if (floor > 0) { %>
+                        <button class="btn btn-secondary btn-sm">↓</button>
+                    <% } %>
+                </td>
+
+                <!-- Right elevator shaft -->
+                <td class="elevator-shaft">
+                    <div id="elevator-right-floor-<%= floor %>" class="elevator-box"></div>
+                </td>
+
+                <!-- Right shaft's internal floor buttons -->
+                <td class="floor-buttons">
+                    <% if (floor === 0) { %>
+                        <button class="btn btn-primary btn-sm">G</button>
+                    <% } else { %>
+                        <button class="btn btn-primary btn-sm"><%= floor %></button>
+                    <% } %>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script>
+    // JavaScript to handle elevator movement and button clicks will go here
+</script>
+</body>
+</html>
