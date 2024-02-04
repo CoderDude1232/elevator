@@ -13,14 +13,7 @@ html, body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.container-fluid {
-    /* No max-width specified to allow full width */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: calc(100vh - 50px); /* Adjusted if necessary */
+    width: 700px;
 }
 
 .row {
@@ -40,12 +33,24 @@ html, body {
 .elevator-box {
     position: absolute;
     bottom: 0; /* Start at the bottom (ground floor) */
-    width: 50px;
+    width: 80px;
     height: 100px;
     background-color: #007bff;
     /* Center the box horizontally */
     left: 50%;
     transform: translateX(-50%);
+}
+
+.left-elevator-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.right-elevator-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
 }
 
 .floor-label {

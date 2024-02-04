@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elevator Simulation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="/css/styles.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -13,13 +13,35 @@
 
 <div class="container">
     <h2>Elevator Simulation</h2>
-    
-
         <% for(let floor = 7; floor >= 1; floor--) { %>
             <div class="row bordered align-items-stretch">
-                <div class="col-3">Col 1 buttons</div>
+                <div class="col-2 left-elevator-buttons">
+                    <% if(floor === 1) { %>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', <%= floor %>)">
+                            <i class="bi bi-7-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', <%= floor %>)">
+                            <i class="bi bi-6-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', <%= floor %>)">
+                            <i class="bi bi-5-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', <%= floor %>)">
+                            <i class="bi bi-4-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', <%= floor %>)">
+                            <i class="bi bi-3-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', <%= floor %>)">
+                            <i class="bi bi-2-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', <%= floor %>)">
+                            <i class="bi bi-1-circle" data-pressed="false"></i>
+                        </div>
+                    <% } %>
+                </div>
                 <!-- Left Elevator Shaft -->
-                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                <div class="col-3 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
                     <!-- Only one elevator box which will move up and down -->
                     <% if(floor === 1) { %>
                         <div class="elevator-box" id="left-elevator"></div>
@@ -29,7 +51,7 @@
                 <!-- Control Panel -->
                 <div class="col-2 d-flex flex-column justify-content-center align-items-center">
                     <!-- Up and Down Call Buttons -->
-                    <p>Floor <%= floor %> bubbles</p>
+                    <p class="floor-label">Floor <%= floor %></p>
                     <% if (floor < 7) { %>
                         <!-- Up Icon -->
                         <div class="icon-button" onclick="toggleElevatorButton(this, 'up', <%= floor %>)">
@@ -45,30 +67,86 @@
                 </div>
                 
                 <!-- Right Elevator Shaft -->
-                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                <div class="col-3 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
                     <!-- Only one elevator box which will move up and down -->
                     <% if(floor === 1) { %>
                         <div class="elevator-box" id="right-elevator"></div>
                     <% } %>
                 </div>
-                <div class="col-3">Col 5 buttons</div>
+                <div class="col-2 right-elevator-buttons">
+                    <% if(floor === 1) { %>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', <%= floor %>)">
+                            <i class="bi bi-7-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', <%= floor %>)">
+                            <i class="bi bi-6-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', <%= floor %>)">
+                            <i class="bi bi-5-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', <%= floor %>)">
+                            <i class="bi bi-4-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', <%= floor %>)">
+                            <i class="bi bi-3-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', <%= floor %>)">
+                            <i class="bi bi-2-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', <%= floor %>)">
+                            <i class="bi bi-1-circle" data-pressed="false"></i>
+                        </div>
+                    <% } %>
+                </div>
             </div>
         <% } %>
 
 </div>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 <script>
     // JavaScript to handle elevator movement and button clicks will go here
     function toggleElevatorButton(element, direction) {
+        const icon = element.querySelector('i');
+        const isPressed = icon.getAttribute('data-pressed') === 'true';
+
+        if (direction === 'up') {
+            icon.classList.toggle('bi-arrow-up-circle', isPressed);
+            icon.classList.toggle('bi-arrow-up-circle-fill', !isPressed);
+        } else if (direction === 'down') {
+            icon.classList.toggle('bi-arrow-down-circle', isPressed);
+            icon.classList.toggle('bi-arrow-down-circle-fill', !isPressed);
+        }
+        
+        icon.setAttribute('data-pressed', !isPressed);
+        // Call additional functions if needed when button is toggled
+    }
+
+    // JavaScript to handle elevator floor level button clicks will go here
+    function toggleFloorSelectionButton(element, floor) {
     const icon = element.querySelector('i');
     const isPressed = icon.getAttribute('data-pressed') === 'true';
 
-    if (direction === 'up') {
-        icon.classList.toggle('bi-arrow-up-circle', isPressed);
-        icon.classList.toggle('bi-arrow-up-circle-fill', !isPressed);
-    } else if (direction === 'down') {
-        icon.classList.toggle('bi-arrow-down-circle', isPressed);
-        icon.classList.toggle('bi-arrow-down-circle-fill', !isPressed);
+    if (floor === '1') {
+        icon.classList.toggle('bi-1-circle', isPressed);
+        icon.classList.toggle('bi-1-circle-fill', !isPressed);
+    } else if (floor === '2') {
+        icon.classList.toggle('bi-2-circle', isPressed);
+        icon.classList.toggle('bi-2-circle-fill', !isPressed);
+    } else if (floor === '3') {
+        icon.classList.toggle('bi-3-circle', isPressed);
+        icon.classList.toggle('bi-3-circle-fill', !isPressed);
+    } else if (floor === '4') {
+        icon.classList.toggle('bi-4-circle', isPressed);
+        icon.classList.toggle('bi-4-circle-fill', !isPressed);
+    } else if (floor === '5') {
+        icon.classList.toggle('bi-5-circle', isPressed);
+        icon.classList.toggle('bi-5-circle-fill', !isPressed);
+    } else if (floor === '6') {
+        icon.classList.toggle('bi-6-circle', isPressed);
+        icon.classList.toggle('bi-6-circle-fill', !isPressed);
+    } else if (floor === '7') {
+        icon.classList.toggle('bi-7-circle', isPressed);
+        icon.classList.toggle('bi-7-circle-fill', !isPressed);
     }
     
     icon.setAttribute('data-pressed', !isPressed);
