@@ -10,45 +10,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
 <body>
+    <% let totalFloors = 7; %>
+    <% let currentFloorLeftElevator = 3; %> <!-- Dynamically set based on the left elevator's current floor -->
+    <% let currentFloorRightElevator = 5; %> <!-- Dynamically set based on the right elevator's current floor -->
 <div class="container">
     <h2>Elevator Simulation</h2>
-        <% for(let floor = 7; floor >= 1; floor--) { %>
+        <% for(let floor = totalFloors; floor >= 1; floor--) { %>
             <div class="row bordered align-items-stretch">
-                <div class="col-2 left-elevator-buttons">
-                    <% if(floor === 1) { %>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', <%= floor %>)">
-                            <i class="bi bi-7-circle" data-pressed="false"></i>
-                        </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', <%= floor %>)">
-                            <i class="bi bi-6-circle" data-pressed="false"></i>
-                        </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', <%= floor %>)">
-                            <i class="bi bi-5-circle" data-pressed="false"></i>
-                        </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', <%= floor %>)">
-                            <i class="bi bi-4-circle" data-pressed="false"></i>
-                        </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', <%= floor %>)">
-                            <i class="bi bi-3-circle" data-pressed="false"></i>
-                        </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', <%= floor %>)">
-                            <i class="bi bi-2-circle" data-pressed="false"></i>
-                        </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', <%= floor %>)">
-                            <i class="bi bi-1-circle" data-pressed="false"></i>
-                        </div>
-                    <% } %>
+                <!-- Container for Left Elevator Floor Selection Buttons -->
+<div class="col-3 left-elevator-buttons">
+    <% if (currentFloorLeftElevator) { %> <!-- Check if the current floor is set -->
+        <div class="row">
+            <% for(let floor = 1; floor <= totalFloors; floor++) { %>
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '<%= floor %>', '<%= floor %>')">
+                        <i class="bi bi-<%= floor %>-circle" data-pressed="false"></i>
+                    </div>
                 </div>
+                <% if (floor % 3 === 0 && floor < totalFloors) { %> <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                <% } %>
+            <% } %>
+        </div>
+    <% } %>
+</div>
                 <!-- Left Elevator Shaft -->
-                <div class="col-3 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
-                    <!-- Only one elevator box which will move up and down -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-<%= floor %>">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
                     <% if(floor === 1) { %>
-                        <div class="elevator-box" id="left-elevator"></div>
+                    <div class="elevator" id="left-elevator">
+                        <div class="elevator-box"></div>
+                    </div>
                     <% } %>
                 </div>
-                
                 <!-- Control Panel -->
-                <div class="col-2 d-flex flex-column justify-content-center align-items-center">
+                <div class="col-2 d-flex flex-column justify-content-center align-items-center control-panel">
                     <!-- Up and Down Call Buttons -->
                     <p class="floor-label">Floor <%= floor %></p>
                     <% if (floor < 7) { %>
@@ -63,38 +65,46 @@
                             <i class="bi bi-arrow-down-circle" data-pressed="false"></i>
                         </div>
                     <% } %>
-                </div>
-                
+                </div>                
                 <!-- Right Elevator Shaft -->
-                <div class="col-3 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
-                    <!-- Only one elevator box which will move up and down -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-<%= floor %>">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
                     <% if(floor === 1) { %>
-                        <div class="elevator-box" id="right-elevator"></div>
+                    <div class="elevator" id="right-elevator">
+                        <div class="elevator-box"></div>
+                    </div>
                     <% } %>
                 </div>
-                <div class="col-2 right-elevator-buttons">
+                <div class="col-3 right-elevator-buttons">
                     <% if(floor === 1) { %>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', <%= floor %>)">
-                            <i class="bi bi-7-circle" data-pressed="false"></i>
-                        </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', <%= floor %>)">
-                            <i class="bi bi-6-circle" data-pressed="false"></i>
-                        </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', <%= floor %>)">
-                            <i class="bi bi-5-circle" data-pressed="false"></i>
-                        </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', <%= floor %>)">
-                            <i class="bi bi-4-circle" data-pressed="false"></i>
-                        </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', <%= floor %>)">
-                            <i class="bi bi-3-circle" data-pressed="false"></i>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', <%= floor %>)">
+                            <i class="bi bi-1-circle" data-pressed="false"></i>
                         </div>
                         <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', <%= floor %>)">
                             <i class="bi bi-2-circle" data-pressed="false"></i>
                         </div>
-                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', <%= floor %>)">
-                            <i class="bi bi-1-circle" data-pressed="false"></i>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', <%= floor %>)">
+                            <i class="bi bi-3-circle" data-pressed="false"></i>
                         </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', <%= floor %>)">
+                            <i class="bi bi-4-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', <%= floor %>)">
+                            <i class="bi bi-5-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', <%= floor %>)">
+                            <i class="bi bi-6-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', <%= floor %>)">
+                            <i class="bi bi-7-circle" data-pressed="false"></i>
+                        </div>
+                        
                     <% } %>
                 </div>
             </div>
@@ -151,6 +161,35 @@
     icon.setAttribute('data-pressed', !isPressed);
     // Call additional functions if needed when button is toggled
     }
+
+    // Function to open elevator doors
+    // function openDoors(elevatorId) {
+    //     const elevator = document.getElementById(elevatorId);
+    //     elevator.classList.add('open'); // Add class that triggers the doors to open
+    // }
+
+    // Function to open elevator doors on a specific floor
+    function openDoors(floorNumber) {
+    const selector = `#floor-${floorNumber} .elevator-door`;
+    console.log(`Selector: ${selector}`);
+    const doors = document.querySelectorAll(selector);
+    console.log(`Found doors:`, doors);
+    if (doors.length === 0) {
+        console.error('Doors element not found for floor:', floorNumber);
+    } else {
+        doors.forEach(door => {
+            door.classList.add('open');
+        });
+    }
+}
+
+    // Function to close elevator doors
+    function closeDoors(elevatorId) {
+        const elevator = document.getElementById(elevatorId);
+        elevator.classList.remove('open'); // Remove class that triggers the doors to close
+    }
+
+
 
 </script>
 </body>
