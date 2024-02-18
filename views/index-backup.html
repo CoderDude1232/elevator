@@ -1,0 +1,864 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elevator Simulation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+    
+     <!-- Dynamically set based on the left elevator's current floor -->
+     <!-- Dynamically set based on the right elevator's current floor -->
+<div class="container">
+    <h2>Elevator Simulation</h2>
+        
+            <div class="row bordered align-items-stretch">
+                <!-- Container for Left Elevator Floor Selection Buttons -->
+<div class="col-3 left-elevator-buttons">
+     <!-- Check if the current floor is set -->
+        <div class="row">
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', '1')">
+                        <i class="bi bi-1-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', '2')">
+                        <i class="bi bi-2-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', '3')">
+                        <i class="bi bi-3-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', '4')">
+                        <i class="bi bi-4-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', '5')">
+                        <i class="bi bi-5-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', '6')">
+                        <i class="bi bi-6-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', '7')">
+                        <i class="bi bi-7-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+        </div>
+    
+</div>
+                <!-- Left Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-7">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <!-- Control Panel -->
+                <div class="col-2 d-flex flex-column justify-content-center align-items-center control-panel">
+                    <!-- Up and Down Call Buttons -->
+                    <p class="floor-label">Floor 7</p>
+                    
+                    
+                        <!-- Down Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'down', 7)">
+                            <i class="bi bi-arrow-down-circle" data-pressed="false"></i>
+                        </div>
+                    
+                </div>                
+                <!-- Right Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-7">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <div class="col-3 right-elevator-buttons">
+                    
+                </div>
+            </div>
+        
+            <div class="row bordered align-items-stretch">
+                <!-- Container for Left Elevator Floor Selection Buttons -->
+<div class="col-3 left-elevator-buttons">
+     <!-- Check if the current floor is set -->
+        <div class="row">
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', '1')">
+                        <i class="bi bi-1-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', '2')">
+                        <i class="bi bi-2-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', '3')">
+                        <i class="bi bi-3-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', '4')">
+                        <i class="bi bi-4-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', '5')">
+                        <i class="bi bi-5-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', '6')">
+                        <i class="bi bi-6-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', '7')">
+                        <i class="bi bi-7-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+        </div>
+    
+</div>
+                <!-- Left Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-6">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <!-- Control Panel -->
+                <div class="col-2 d-flex flex-column justify-content-center align-items-center control-panel">
+                    <!-- Up and Down Call Buttons -->
+                    <p class="floor-label">Floor 6</p>
+                    
+                        <!-- Up Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'up', 6)">
+                            <i class="bi bi-arrow-up-circle" data-pressed="false"></i>
+                        </div>
+                    
+                    
+                        <!-- Down Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'down', 6)">
+                            <i class="bi bi-arrow-down-circle" data-pressed="false"></i>
+                        </div>
+                    
+                </div>                
+                <!-- Right Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-6">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <div class="col-3 right-elevator-buttons">
+                    
+                </div>
+            </div>
+        
+            <div class="row bordered align-items-stretch">
+                <!-- Container for Left Elevator Floor Selection Buttons -->
+<div class="col-3 left-elevator-buttons">
+     <!-- Check if the current floor is set -->
+        <div class="row">
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', '1')">
+                        <i class="bi bi-1-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', '2')">
+                        <i class="bi bi-2-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', '3')">
+                        <i class="bi bi-3-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', '4')">
+                        <i class="bi bi-4-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', '5')">
+                        <i class="bi bi-5-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', '6')">
+                        <i class="bi bi-6-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', '7')">
+                        <i class="bi bi-7-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+        </div>
+    
+</div>
+                <!-- Left Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-5">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <!-- Control Panel -->
+                <div class="col-2 d-flex flex-column justify-content-center align-items-center control-panel">
+                    <!-- Up and Down Call Buttons -->
+                    <p class="floor-label">Floor 5</p>
+                    
+                        <!-- Up Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'up', 5)">
+                            <i class="bi bi-arrow-up-circle" data-pressed="false"></i>
+                        </div>
+                    
+                    
+                        <!-- Down Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'down', 5)">
+                            <i class="bi bi-arrow-down-circle" data-pressed="false"></i>
+                        </div>
+                    
+                </div>                
+                <!-- Right Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-5">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <div class="col-3 right-elevator-buttons">
+                    
+                </div>
+            </div>
+        
+            <div class="row bordered align-items-stretch">
+                <!-- Container for Left Elevator Floor Selection Buttons -->
+<div class="col-3 left-elevator-buttons">
+     <!-- Check if the current floor is set -->
+        <div class="row">
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', '1')">
+                        <i class="bi bi-1-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', '2')">
+                        <i class="bi bi-2-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', '3')">
+                        <i class="bi bi-3-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', '4')">
+                        <i class="bi bi-4-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', '5')">
+                        <i class="bi bi-5-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', '6')">
+                        <i class="bi bi-6-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', '7')">
+                        <i class="bi bi-7-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+        </div>
+    
+</div>
+                <!-- Left Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-4">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <!-- Control Panel -->
+                <div class="col-2 d-flex flex-column justify-content-center align-items-center control-panel">
+                    <!-- Up and Down Call Buttons -->
+                    <p class="floor-label">Floor 4</p>
+                    
+                        <!-- Up Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'up', 4)">
+                            <i class="bi bi-arrow-up-circle" data-pressed="false"></i>
+                        </div>
+                    
+                    
+                        <!-- Down Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'down', 4)">
+                            <i class="bi bi-arrow-down-circle" data-pressed="false"></i>
+                        </div>
+                    
+                </div>                
+                <!-- Right Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-4">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <div class="col-3 right-elevator-buttons">
+                    
+                </div>
+            </div>
+        
+            <div class="row bordered align-items-stretch">
+                <!-- Container for Left Elevator Floor Selection Buttons -->
+<div class="col-3 left-elevator-buttons">
+     <!-- Check if the current floor is set -->
+        <div class="row">
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', '1')">
+                        <i class="bi bi-1-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', '2')">
+                        <i class="bi bi-2-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', '3')">
+                        <i class="bi bi-3-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', '4')">
+                        <i class="bi bi-4-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', '5')">
+                        <i class="bi bi-5-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', '6')">
+                        <i class="bi bi-6-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', '7')">
+                        <i class="bi bi-7-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+        </div>
+    
+</div>
+                <!-- Left Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-3">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <!-- Control Panel -->
+                <div class="col-2 d-flex flex-column justify-content-center align-items-center control-panel">
+                    <!-- Up and Down Call Buttons -->
+                    <p class="floor-label">Floor 3</p>
+                    
+                        <!-- Up Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'up', 3)">
+                            <i class="bi bi-arrow-up-circle" data-pressed="false"></i>
+                        </div>
+                    
+                    
+                        <!-- Down Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'down', 3)">
+                            <i class="bi bi-arrow-down-circle" data-pressed="false"></i>
+                        </div>
+                    
+                </div>                
+                <!-- Right Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-3">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <div class="col-3 right-elevator-buttons">
+                    
+                </div>
+            </div>
+        
+            <div class="row bordered align-items-stretch">
+                <!-- Container for Left Elevator Floor Selection Buttons -->
+<div class="col-3 left-elevator-buttons">
+     <!-- Check if the current floor is set -->
+        <div class="row">
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', '1')">
+                        <i class="bi bi-1-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', '2')">
+                        <i class="bi bi-2-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', '3')">
+                        <i class="bi bi-3-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', '4')">
+                        <i class="bi bi-4-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', '5')">
+                        <i class="bi bi-5-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', '6')">
+                        <i class="bi bi-6-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', '7')">
+                        <i class="bi bi-7-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+        </div>
+    
+</div>
+                <!-- Left Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-2">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <!-- Control Panel -->
+                <div class="col-2 d-flex flex-column justify-content-center align-items-center control-panel">
+                    <!-- Up and Down Call Buttons -->
+                    <p class="floor-label">Floor 2</p>
+                    
+                        <!-- Up Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'up', 2)">
+                            <i class="bi bi-arrow-up-circle" data-pressed="false"></i>
+                        </div>
+                    
+                    
+                        <!-- Down Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'down', 2)">
+                            <i class="bi bi-arrow-down-circle" data-pressed="false"></i>
+                        </div>
+                    
+                </div>                
+                <!-- Right Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-2">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                </div>
+                <div class="col-3 right-elevator-buttons">
+                    
+                </div>
+            </div>
+        
+            <div class="row bordered align-items-stretch">
+                <!-- Container for Left Elevator Floor Selection Buttons -->
+<div class="col-3 left-elevator-buttons">
+     <!-- Check if the current floor is set -->
+        <div class="row">
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', '1')">
+                        <i class="bi bi-1-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', '2')">
+                        <i class="bi bi-2-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', '3')">
+                        <i class="bi bi-3-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', '4')">
+                        <i class="bi bi-4-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', '5')">
+                        <i class="bi bi-5-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', '6')">
+                        <i class="bi bi-6-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                 <!-- Break row every 3 buttons, without creating an empty row at the end -->
+                    </div><div class="row">
+                
+            
+                <div class="col-4">
+                    <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', '7')">
+                        <i class="bi bi-7-circle" data-pressed="false"></i>
+                    </div>
+                </div>
+                
+            
+        </div>
+    
+</div>
+                <!-- Left Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="left-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-1">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                    <div class="elevator" id="left-elevator">
+                        <div class="elevator-box"></div>
+                    </div>
+                    
+                </div>
+                <!-- Control Panel -->
+                <div class="col-2 d-flex flex-column justify-content-center align-items-center control-panel">
+                    <!-- Up and Down Call Buttons -->
+                    <p class="floor-label">Floor 1</p>
+                    
+                        <!-- Up Icon -->
+                        <div class="icon-button" onclick="toggleElevatorButton(this, 'up', 1)">
+                            <i class="bi bi-arrow-up-circle" data-pressed="false"></i>
+                        </div>
+                    
+                    
+                </div>                
+                <!-- Right Elevator Shaft -->
+                <div class="col-2 d-flex flex-column justify-content-end elevator-shaft" id="right-elevator-shaft">
+                    <!-- Doors -->
+                        <div class="floor" id="floor-1">
+                            <!-- Left and right doors inside each floor container -->
+                            <div class="elevator-door left-door"></div>
+                            <div class="elevator-door right-door"></div>
+                        </div>
+                    <!-- Elevator (only one box that moves) -->
+                    
+                    <div class="elevator" id="right-elevator">
+                        <div class="elevator-box"></div>
+                    </div>
+                    
+                </div>
+                <div class="col-3 right-elevator-buttons">
+                    
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '1', 1)">
+                            <i class="bi bi-1-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '2', 1)">
+                            <i class="bi bi-2-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '3', 1)">
+                            <i class="bi bi-3-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '4', 1)">
+                            <i class="bi bi-4-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '5', 1)">
+                            <i class="bi bi-5-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '6', 1)">
+                            <i class="bi bi-6-circle" data-pressed="false"></i>
+                        </div>
+                        <div class="icon-button" onclick="toggleFloorSelectionButton(this, '7', 1)">
+                            <i class="bi bi-7-circle" data-pressed="false"></i>
+                        </div>
+                        
+                    
+                </div>
+            </div>
+        
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+<script>
+    // JavaScript to handle elevator movement and button clicks will go here
+    function toggleElevatorButton(element, direction) {
+        const icon = element.querySelector('i');
+        const isPressed = icon.getAttribute('data-pressed') === 'true';
+
+        if (direction === 'up') {
+            icon.classList.toggle('bi-arrow-up-circle', isPressed);
+            icon.classList.toggle('bi-arrow-up-circle-fill', !isPressed);
+        } else if (direction === 'down') {
+            icon.classList.toggle('bi-arrow-down-circle', isPressed);
+            icon.classList.toggle('bi-arrow-down-circle-fill', !isPressed);
+        }
+        
+        icon.setAttribute('data-pressed', !isPressed);
+        // Call additional functions if needed when button is toggled
+    }
+
+    // JavaScript to handle elevator floor level button clicks will go here
+    function toggleFloorSelectionButton(element, floor) {
+    const icon = element.querySelector('i');
+    const isPressed = icon.getAttribute('data-pressed') === 'true';
+
+    if (floor === '1') {
+        icon.classList.toggle('bi-1-circle', isPressed);
+        icon.classList.toggle('bi-1-circle-fill', !isPressed);
+    } else if (floor === '2') {
+        icon.classList.toggle('bi-2-circle', isPressed);
+        icon.classList.toggle('bi-2-circle-fill', !isPressed);
+    } else if (floor === '3') {
+        icon.classList.toggle('bi-3-circle', isPressed);
+        icon.classList.toggle('bi-3-circle-fill', !isPressed);
+    } else if (floor === '4') {
+        icon.classList.toggle('bi-4-circle', isPressed);
+        icon.classList.toggle('bi-4-circle-fill', !isPressed);
+    } else if (floor === '5') {
+        icon.classList.toggle('bi-5-circle', isPressed);
+        icon.classList.toggle('bi-5-circle-fill', !isPressed);
+    } else if (floor === '6') {
+        icon.classList.toggle('bi-6-circle', isPressed);
+        icon.classList.toggle('bi-6-circle-fill', !isPressed);
+    } else if (floor === '7') {
+        icon.classList.toggle('bi-7-circle', isPressed);
+        icon.classList.toggle('bi-7-circle-fill', !isPressed);
+    }
+    
+    icon.setAttribute('data-pressed', !isPressed);
+    // Call additional functions if needed when button is toggled
+    }
+
+    // Function to open elevator doors
+    // function openDoors(elevatorId) {
+    //     const elevator = document.getElementById(elevatorId);
+    //     elevator.classList.add('open'); // Add class that triggers the doors to open
+    // }
+
+    // Function to open elevator doors on a specific floor
+    function openDoors(floorNumber) {
+    const selector = `#floor-${floorNumber} .elevator-door`;
+    console.log(`Selector: ${selector}`);
+    const doors = document.querySelectorAll(selector);
+    console.log(`Found doors:`, doors);
+    if (doors.length === 0) {
+        console.error('Doors element not found for floor:', floorNumber);
+    } else {
+        doors.forEach(door => {
+            door.classList.add('open');
+        });
+    }
+}
+
+    // Function to close elevator doors
+    function closeDoors(elevatorId) {
+        const elevator = document.getElementById(elevatorId);
+        elevator.classList.remove('open'); // Remove class that triggers the doors to close
+    }
+
+
+
+</script>
+
+</body></html>

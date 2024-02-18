@@ -28,29 +28,74 @@ html, body {
     justify-content: flex-end; /* Keeps the elevator box at the bottom */
     flex-grow: 1; /* Makes sure it fills the height of the parent */
     min-height: 100px; /* Ensures full height */
+    background-color: #000;
 }
 
 .elevator-box {
     position: absolute;
     bottom: 0; /* Start at the bottom (ground floor) */
-    width: 80px;
+    width: 100%;
     height: 100px;
-    background-color: #007bff;
+    background-color: #ea0a0a;
     /* Center the box horizontally */
     left: 50%;
     transform: translateX(-50%);
+    z-index: 3;
+}
+
+.elevator-door {
+    position: absolute;
+    width: 50%; /* Each door is half the width of the elevator */
+    height: 100px; /* The height of the doors */
+    background-color: #333; /* Door color */
+    top: 50%; /* Position at the middle of the shaft */
+    transform: translateY(-50%); /* Align center with the middle of the shaft */
+    transition: transform 0.5s; /* Smooth transition for opening/closing */
+    z-index: 4;
+}
+
+.left-door {
+    left: 0;
+    transform: translateY(-50%) translateX(0%); /* Adjust X position when door is closed */
+    background-color: silver;
+    clip-path: inset(0 1px 0 0)
+}
+
+.right-door {
+    right: 0;
+    transform: translateY(-50%) translateX(0%); /* Adjust X position when door is closed */
+    background-color: silver;
+    clip-path: inset(0 0 0 1px)
+}
+
+/* Doors open state */
+.open .left-door {
+    transform: translateY(-50%) translateX(-100%); /* Move left door to the left */
+}
+
+.open .right-door {
+    transform: translateY(-50%) translateX(100%); /* Move right door to the right */
 }
 
 .left-elevator-buttons {
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
+    z-index: 6;
+    background-color: #0289ff; /* Door color */
+}
+
+.control-panel {
+    z-index: 6;
+    background-color: #0289ff; /* Door color */
 }
 
 .right-elevator-buttons {
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
+    z-index: 6;
+    background-color: #0289ff;
 }
 
 .floor-label {
@@ -71,4 +116,19 @@ html, body {
 
 .bordered {
     border: 1px solid #000;
+}
+
+.icon-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px; /* Adjust size as needed */
+    height: 24px; /* Adjust size as needed */
+    background-color: #f0f0f0; /* Background color */
+    border-radius: 30px; /* Circular shape */
+    cursor: pointer;
+}
+
+.icon-button i {
+    font-size: 24px; /* Adjust icon size as needed */
 }
