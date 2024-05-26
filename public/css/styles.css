@@ -21,6 +21,10 @@ html, body {
     align-items: stretch; /* Stretch all children to fill available space */
 }
 
+.floor {
+    height: 100px; /* Each floor should match the height of the elevator-box */
+}
+
 .elevator-shaft {
     position: relative;
     display: flex;
